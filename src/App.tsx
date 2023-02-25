@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes";
-import "./App.css";
 import Header from "./components/Header";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
@@ -13,7 +12,7 @@ function App() {
       <CssBaseline />
       <Box
         sx={{
-          height: "100vh",
+          minHeight: "100vh",
           backgroundColor: "#28293e",
         }}
       >

@@ -1,4 +1,6 @@
-import { useAppSelector } from "../hook";
+import { useAppSelector, useAppDispatch } from "../hooks/redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/authSlice";
 import { useState } from "react";
 import ModalWindow from "./ModalWindow";
 import AppBar from "@mui/material/AppBar";
@@ -6,29 +8,27 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import { useSelector } from "react-redux";
-
-const pages = ["News"];
+import { Link as RouterLink } from "react-router-dom";
+import MobileMenu from "./MobileMenu";
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const { isAuth } = useAppSelector((state) => state.auth);
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  const handleOpenNavMenu = () => setOpen(true);
+  const handleCloseNavMenu = () => setOpen(false);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
   };
 
   return (
@@ -38,8 +38,8 @@ function ResponsiveAppBar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={RouterLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -65,35 +65,16 @@ function ResponsiveAppBar() {
             >
               <MenuIcon fontSize="large" />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <MobileMenu
+              open={open}
+              openMenu={handleOpenNavMenu}
+              closeMenu={handleCloseNavMenu}
+            />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             <Button
-              onClick={handleCloseNavMenu}
-              href="news"
+              component={RouterLink}
+              to="news"
               sx={{ my: 2, color: "white", display: "block" }}
             >
               News
@@ -111,10 +92,22 @@ function ResponsiveAppBar() {
             </ButtonGroup>
             {isAuth && (
               <>
-                <IconButton sx={{ p: 0 }} href="profile">
+                <IconButton
+                  sx={{
+                    p: 0,
+                    display: {
+                      md: "flex",
+                      xs: "none",
+                    },
+                  }}
+                  component={RouterLink}
+                  to="profile"
+                >
                   <AccountCircle fontSize="large" sx={{ color: "white" }} />
                 </IconButton>
-                <Button variant="contained">logout</Button>
+                <Button variant="contained" onClick={handleLogout}>
+                  logout
+                </Button>
               </>
             )}
             <ModalWindow />

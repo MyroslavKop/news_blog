@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { Controller, useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../hook";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { authSuccess, authFail, clearError } from "../redux/authSlice";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -17,12 +17,16 @@ interface FormInputs {
   password: string;
 }
 
+interface LoginFormProps {
+  closeModal: () => void;
+}
+
 const schema = yup.object({
   username: yup.string().required("Enter your username"),
   password: yup.string().required("Enter your password"),
 });
 
-const LoginForm = ({ closeModal }: any) => {
+const LoginForm = ({ closeModal }: LoginFormProps) => {
   const { error, errorMessage } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -31,10 +35,11 @@ const LoginForm = ({ closeModal }: any) => {
   });
 
   const onSubmit = (data: any) => {
-    if (data.username !== "admin" && data.password !== "12345") {
+    if (data.username !== "admin" || data.password !== "12345") {
       dispatch(authFail());
     } else {
       closeModal();
+      navigate("/profile");
       dispatch(authSuccess());
     }
   };

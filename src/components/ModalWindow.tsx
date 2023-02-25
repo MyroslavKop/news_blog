@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAppSelector } from "../hook";
+import { useAppSelector } from "../hooks/redux";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -8,15 +8,11 @@ import LoginForm from "./LoginForm";
 
 const ModalWindow = () => {
   const [open, setOpen] = useState(false);
+
   const { isAuth } = useAppSelector((state) => state.auth);
 
-  const openModal = () => {
-    setOpen(true);
-  };
-
-  const closeModal = () => {
-    setOpen(false);
-  };
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
 
   return (
     <div>

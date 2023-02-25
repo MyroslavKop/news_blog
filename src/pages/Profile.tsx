@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import defaultAvatar from "../assets/img/default_avatar.png";
+import ProfileInfo from "../components/ProfileInfo";
+
 const Profile = () => {
   return (
     <Box
@@ -11,93 +13,92 @@ const Profile = () => {
           md: "row",
           xs: "column",
         },
-        gap: 6,
-        height: "100%",
+        gap: {
+          md: 6,
+          xs: 3,
+        },
+        alignItems: {
+          xs: "center",
+        },
+        maxHeight: "800px",
         paddingTop: "70px",
       }}
     >
-      <Box sx={{ maxWidth: "200px", maxHeight: "200px" }}>
-        <img
-          src={defaultAvatar}
-          alt="default avatar"
-          style={{ width: "100%", height: "100%" }}
-        />
-      </Box>
       <Box
         sx={{
+          backgroundColor: "#8561c5",
+          borderRadius: "20px",
           display: "flex",
-          gap: 2,
+          alignItems: "center",
           flexDirection: "column",
-          flexBasis: 500,
-          marginTop: 1,
+          maxWidth: "400px",
+          p: {
+            md: 3,
+            xs: 1,
+          },
         }}
       >
-        <Box>
-          <Typography
-            variant="h3"
-            fontSize={30}
-            fontWeight={600}
-            borderBottom="5px solid rgba(202, 175, 175, 0.49)"
-            width="fit-content"
-            marginBottom="6px"
-          >
-            Name
-          </Typography>
-          <Typography variant="body1" fontSize={18}>
-            Mike
-          </Typography>
+        <Box
+          sx={{
+            maxWidth: {
+              md: "200px",
+              xs: "150px",
+            },
+            maxHeight: {
+              md: "200px",
+              xs: "150px",
+            },
+          }}
+        >
+          <img
+            src={defaultAvatar}
+            alt="default avatar"
+            style={{ width: "100%", height: "100%" }}
+          />
         </Box>
-        <Box>
-          <Typography
-            variant="h3"
-            fontSize={30}
-            fontWeight={600}
-            borderBottom="5px solid rgba(202, 175, 175, 0.49)"
-            width="fit-content"
-            marginBottom="6px"
-          >
-            Email
-          </Typography>
-          <Typography variant="body1" fontSize={18}>
-            userprofile@gmail.com
-          </Typography>
-        </Box>
-        <Box>
-          <Typography
-            variant="h3"
-            fontSize={30}
-            fontWeight={600}
-            borderBottom="5px solid rgba(202, 175, 175, 0.49)"
-            width="fit-content"
-            marginBottom="6px"
-          >
-            Phone number
-          </Typography>
-          <Typography variant="body1" fontSize={18}>
-            +38(099)99999999
-          </Typography>
-        </Box>
-        <Box>
-          <Typography
-            variant="h3"
-            fontSize={30}
-            fontWeight={600}
-            borderBottom="5px solid rgba(202, 175, 175, 0.49)"
-            width="fit-content"
-            marginBottom="6px"
-          >
-            About me
-          </Typography>
-          <Typography variant="body1" fontSize={18}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet,
-            autem cupiditate deleniti doloremque earum eligendi ex iure
-            molestiae mollitia, nihil odio quae quis quod rem sapiente similique
-            temporibus. At, et. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Amet, autem cupiditate deleniti doloremque earum
-            eligendi ex iure molestiae mollitia, nihil odio quae quis quod rem
-            sapiente similique temporibus. At, et.
-          </Typography>
-        </Box>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: {
+              md: "30px",
+              xs: "25px",
+            },
+            fontWeight: 600,
+          }}
+        >
+          Mike
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: {
+              md: "18px",
+              xs: "16px",
+            },
+            textAlign: "center",
+          }}
+        >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        </Typography>
+      </Box>
+
+      <Box
+        sx={{
+          display: "grid",
+          gap: 5,
+          gridTemplateColumns: {
+            md: "1fr 1fr",
+            xs: "1fr",
+          },
+          justifyContent: "center",
+          marginTop: 1,
+          p: 2,
+        }}
+      >
+        <ProfileInfo category="Email" info="userprofile@gmail.com" />
+        <ProfileInfo category="Phone number" info="+38(099)99999999" />
+        <ProfileInfo category="Country" info="Ukraine" />
+        <ProfileInfo category="Gender" info="Male" />
       </Box>
     </Box>
   );

@@ -17,6 +17,7 @@ const Home = () => {
         alignItems: "center",
         height: "100%",
         textAlign: {
+          md: "left",
           xs: "center",
         },
         paddingTop: {
@@ -55,6 +56,7 @@ const Home = () => {
               md: 34,
               xs: 25,
             },
+            ml: 1,
           }}
         >
           Home Page
@@ -64,11 +66,11 @@ const Home = () => {
         sx={{
           maxWidth: {
             md: "550px",
-            xs: "350px",
+            xs: "450px",
           },
           maxHeight: {
             md: "550px",
-            xs: "350px",
+            xs: "450px",
           },
         }}
       >

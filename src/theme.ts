@@ -20,6 +20,16 @@ const theme = createTheme({
   typography: {
     fontFamily: ["Nunito Sans", "sans-serif"].join(","),
   },
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: "#8561c5",
+          color: "#FCFCFF",
+        },
+      },
+    },
+  },
 });
 
 export default theme;

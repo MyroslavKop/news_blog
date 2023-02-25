@@ -1,16 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type Modal = {
-  isOpen: boolean;
+interface AuthState {
+  isAuth: boolean;
+  error: boolean;
+  errorMessage: string;
+}
+
+const initialState: AuthState = {
+  isAuth: false,
+  error: false,
+  errorMessage: "",
 };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    isAuth: false,
-    error: false,
-    errorMessage: "",
-  },
+  initialState,
   reducers: {
     authSuccess: (state) => {
       state.isAuth = true;
@@ -26,8 +30,11 @@ const authSlice = createSlice({
       state.error = false;
       state.errorMessage = "";
     },
+    logout: (state) => {
+      state.isAuth = false;
+    },
   },
 });
 
-export const { authSuccess, authFail, clearError } = authSlice.actions;
+export const { authSuccess, authFail, clearError, logout } = authSlice.actions;
 export default authSlice.reducer;
