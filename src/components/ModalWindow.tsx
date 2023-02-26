@@ -1,12 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Typography, Button, Dialog, Box } from "@mui/material";
+
 import { useAppSelector } from "../hooks/redux";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import Box from "@mui/material/Box";
 import LoginForm from "./LoginForm";
 
 const ModalWindow = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
   const { isAuth } = useAppSelector((state) => state.auth);
@@ -18,7 +18,7 @@ const ModalWindow = () => {
     <div>
       {!isAuth && (
         <Button variant="contained" onClick={openModal}>
-          Login
+          {t("login")}
         </Button>
       )}
       <Dialog open={open} onClose={closeModal}>

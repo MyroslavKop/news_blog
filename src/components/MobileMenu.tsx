@@ -1,16 +1,22 @@
-import { SwipeableDrawer } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
+import {
+  SwipeableDrawer,
+  Box,
+  IconButton,
+  Divider,
+  Button,
+} from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 
-const navigationLinks = [
-  { id: 1, name: "Home", href: "/" },
-  { id: 2, name: "News", href: "news" },
-  { id: 3, name: "Profile", href: "profile" },
-];
+import { useTranslation } from "react-i18next";
+import { useAppSelector } from "../hooks/redux";
+
+interface NavigationLinks {
+  id: number;
+  name: string;
+  href: string;
+  isAuth?: boolean;
+}
 
 interface MobileMenuProps {
   open: boolean;
@@ -19,6 +25,19 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = ({ open, openMenu, closeMenu }: MobileMenuProps) => {
+  const { isAuth } = useAppSelector((state) => state.auth);
+  const { t } = useTranslation();
+
+  const navigationLinks = [
+    { id: 1, name: "home", href: "/" },
+    { id: 2, name: "news", href: "news" },
+    { id: 3, name: "profile", href: "profile", isAuth: !isAuth },
+  ];
+
+  const filteredLinks: NavigationLinks[] = navigationLinks.filter(
+    ({ isAuth }) => !isAuth
+  );
+
   return (
     <SwipeableDrawer
       anchor="left"
@@ -42,7 +61,7 @@ const MobileMenu = ({ open, openMenu, closeMenu }: MobileMenuProps) => {
           alignItems: "center",
         }}
       >
-        {navigationLinks.map(({ id, name, href }) => (
+        {filteredLinks.map(({ id, name, href }: NavigationLinks) => (
           <Button
             key={id}
             color="inherit"
@@ -51,7 +70,7 @@ const MobileMenu = ({ open, openMenu, closeMenu }: MobileMenuProps) => {
             onClick={closeMenu}
             to={href}
           >
-            {name}
+            {t(`${name}`)}
           </Button>
         ))}
       </Box>

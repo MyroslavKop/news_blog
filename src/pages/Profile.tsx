@@ -1,5 +1,5 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Box, Typography } from "@mui/material";
+
 import defaultAvatar from "../assets/img/default_avatar.png";
 import ProfileInfo from "../components/ProfileInfo";
 
@@ -21,7 +21,7 @@ const Profile = () => {
           xs: "center",
         },
         maxHeight: "800px",
-        paddingTop: "70px",
+        padding: "70px 16px",
       }}
     >
       <Box

@@ -1,6 +1,6 @@
-import Typography from "@mui/material/Typography";
+import { Typography, Box } from "@mui/material";
+
 import background from "../assets/img/homapage_background.png";
-import Box from "@mui/material/Box";
 
 const Home = () => {
   return (

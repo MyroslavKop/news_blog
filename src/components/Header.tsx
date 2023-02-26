@@ -1,25 +1,30 @@
-import { useAppSelector, useAppDispatch } from "../hooks/redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../redux/authSlice";
 import { useState } from "react";
-import ModalWindow from "./ModalWindow";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import { useNavigate, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Container,
+  Button,
+  ButtonGroup,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import { Link as RouterLink } from "react-router-dom";
+
+import { useAppSelector, useAppDispatch } from "../hooks/redux";
+import { logout } from "../redux/authSlice";
+import ModalWindow from "./ModalWindow";
 import MobileMenu from "./MobileMenu";
 
 function ResponsiveAppBar() {
-  const [open, setOpen] = useState<boolean>(false);
+  const { t, i18n } = useTranslation();
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  const changeLanguage = (lang: string) => i18n.changeLanguage(lang);
 
   const { isAuth } = useAppSelector((state) => state.auth);
 
@@ -35,25 +40,6 @@ function ResponsiveAppBar() {
     <AppBar position="static" color="transparent">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component={RouterLink}
-            to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontSize: "25px",
-              fontWeight: 700,
-              letterSpacing: ".1rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            HOME
-          </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -71,13 +57,32 @@ function ResponsiveAppBar() {
               closeMenu={handleCloseNavMenu}
             />
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              alignItems: "center",
+            }}
+          >
             <Button
-              component={RouterLink}
+              component={Link}
+              to="/"
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                fontSize: 20,
+                fontWeight: "bold",
+              }}
+            >
+              {t("home")}
+            </Button>
+            <Button
+              component={Link}
               to="news"
               sx={{ my: 2, color: "white", display: "block" }}
             >
-              News
+              {t("news")}
             </Button>
           </Box>
 
@@ -87,8 +92,8 @@ function ResponsiveAppBar() {
               color="inherit"
               aria-label="text button group"
             >
-              <Button>EN</Button>
-              <Button>UA</Button>
+              <Button onClick={() => changeLanguage("en")}>EN</Button>
+              <Button onClick={() => changeLanguage("ua")}>UA</Button>
             </ButtonGroup>
             {isAuth && (
               <>
@@ -100,13 +105,13 @@ function ResponsiveAppBar() {
                       xs: "none",
                     },
                   }}
-                  component={RouterLink}
+                  component={Link}
                   to="profile"
                 >
                   <AccountCircle fontSize="large" sx={{ color: "white" }} />
                 </IconButton>
                 <Button variant="contained" onClick={handleLogout}>
-                  logout
+                  {t("logout")}
                 </Button>
               </>
             )}

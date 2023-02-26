@@ -1,16 +1,13 @@
-import Box from "@mui/material/Box";
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+import { Box, Button, IconButton, Alert, TextField } from "@mui/material";
+import ClearIcon from "@mui/icons-material/Clear";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { authSuccess, authFail, clearError } from "../redux/authSlice";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
-import IconButton from "@mui/material/IconButton";
-import ClearIcon from "@mui/icons-material/Clear";
-import * as yup from "yup";
-import Alert from "@mui/material/Alert";
-import CloseIcon from "@mui/icons-material/Close";
-import { useNavigate } from "react-router-dom";
 
 interface FormInputs {
   username: string;
@@ -34,7 +31,7 @@ const LoginForm = ({ closeModal }: LoginFormProps) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormInputs) => {
     if (data.username !== "admin" || data.password !== "12345") {
       dispatch(authFail());
     } else {
