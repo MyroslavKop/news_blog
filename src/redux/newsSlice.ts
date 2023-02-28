@@ -1,4 +1,4 @@
-import { INews } from "../models/INews";
+import INews from "../interfaces";
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
@@ -6,9 +6,11 @@ import type { RootState } from "./store";
 const loadNews = async (page: number = 0) => {
   return {
     data: (
-      await axios.get<INews[]>(
-        `https://jsonplaceholder.typicode.com/posts?_page=${page}`
-      )
+      await axios.get<INews[]>("https://jsonplaceholder.typicode.com/posts", {
+        params: {
+          _page: page,
+        },
+      })
     ).data,
     page,
   };
@@ -33,14 +35,14 @@ interface NewsState {
   news: INews[];
   currentPage: number;
   isLoading: boolean;
-  error: string;
+  error: string | null;
 }
 
 const initialState: NewsState = {
   news: [],
   currentPage: 1,
   isLoading: false,
-  error: "",
+  error: null,
 };
 
 const newsSlice = createSlice({
@@ -65,13 +67,10 @@ const newsSlice = createSlice({
           state.error = "";
         }
       )
-      .addCase(
-        fetchNews.rejected,
-        (state, action: PayloadAction<unknown, string>) => {
-          state.isLoading = false;
-          state.error = action.payload as string;
-        }
-      );
+      .addCase(fetchNews.rejected, (state) => {
+        state.isLoading = false;
+        state.error = "Data loading error";
+      });
 
     builder
       .addCase(fetchNewsMore.pending, (state) => {
@@ -86,13 +85,10 @@ const newsSlice = createSlice({
           state.error = "";
         }
       )
-      .addCase(
-        fetchNewsMore.rejected,
-        (state, action: PayloadAction<unknown, string>) => {
-          state.isLoading = false;
-          state.error = action.payload as string;
-        }
-      );
+      .addCase(fetchNewsMore.rejected, (state) => {
+        state.isLoading = false;
+        state.error = "Data loading error";
+      });
   },
 });
 

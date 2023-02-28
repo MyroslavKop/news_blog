@@ -9,20 +9,8 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { Link as RouterLink } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../hooks/redux";
-
-interface NavigationLinks {
-  id: number;
-  name: string;
-  href: string;
-  isAuth?: boolean;
-}
-
-interface MobileMenuProps {
-  open: boolean;
-  openMenu: () => void;
-  closeMenu: () => void;
-}
+import { useAppSelector } from "../../hooks/redux";
+import { MobileMenuProps, NavigationLinks } from "./interfaces";
 
 const MobileMenu = ({ open, openMenu, closeMenu }: MobileMenuProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);

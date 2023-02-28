@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import News from "./pages/News";
-import Profile from "./pages/Profile";
+import News from "./pages/News/News";
+import Profile from "./pages/Profile/Profile";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 
-import defaultAvatar from "../assets/img/default_avatar.png";
-import ProfileInfo from "../components/ProfileInfo";
+import defaultAvatar from "../../assets/img/default_avatar.png";
+import ProfileInfo from "./components/ProfileInfo";
 
 const Profile = () => {
   return (

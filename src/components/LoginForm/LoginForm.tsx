@@ -1,27 +1,18 @@
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { Box, Button, IconButton, Alert, TextField } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import CloseIcon from "@mui/icons-material/Close";
 
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { authSuccess, authFail, clearError } from "../redux/authSlice";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { authSuccess, authFail, clearError } from "../../redux/authSlice";
+import { FormInputs, LoginFormProps } from "./interfaces";
+import schema from "./schema";
 
-interface FormInputs {
-  username: string;
-  password: string;
-}
-
-interface LoginFormProps {
-  closeModal: () => void;
-}
-
-const schema = yup.object({
-  username: yup.string().required("Enter your username"),
-  password: yup.string().required("Enter your password"),
-});
+const checkCredentials = (data: FormInputs): boolean => {
+  return data.username === "admin" && data.password === "12345";
+};
 
 const LoginForm = ({ closeModal }: LoginFormProps) => {
   const { error, errorMessage } = useAppSelector((state) => state.auth);
@@ -32,7 +23,7 @@ const LoginForm = ({ closeModal }: LoginFormProps) => {
   });
 
   const onSubmit = (data: FormInputs) => {
-    if (data.username !== "admin" || data.password !== "12345") {
+    if (!checkCredentials(data)) {
       dispatch(authFail());
     } else {
       closeModal();

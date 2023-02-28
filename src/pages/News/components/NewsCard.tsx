@@ -7,9 +7,9 @@ import {
 } from "@mui/material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-import { deleteNews } from "../redux/newsSlice";
-import { INews } from "../models/INews";
-import { useAppDispatch } from "../hooks/redux";
+import { deleteNews } from "../../../redux/newsSlice";
+import INews from "../../../interfaces";
+import { useAppDispatch } from "../../../hooks/redux";
 
 const NewsCard = ({ id, body, title }: INews) => {
   const dispatch = useAppDispatch();

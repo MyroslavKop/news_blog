@@ -1,13 +1,11 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
+import { Box, Container, CssBaseline } from "@mui/material";
 
 import Routes from "./routes";
 import Header from "./components/Header";
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <CssBaseline />
@@ -24,6 +22,6 @@ function App() {
       </Box>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

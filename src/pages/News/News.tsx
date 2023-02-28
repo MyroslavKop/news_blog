@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Button, Grid, Box } from "@mui/material";
 
-import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { fetchNews, fetchNewsMore } from "../redux/newsSlice";
-import NewsCard from "../components/NewsCard";
-import Spinner from "../components/Spinner";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { fetchNews, fetchNewsMore } from "../../redux/newsSlice";
+import NewsCard from "./components/NewsCard";
+import Spinner from "../../components/Spinner";
 
 const News = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +25,7 @@ const News = () => {
       padding={2}
     >
       <Grid container spacing={3} sx={{ mt: 3 }} justifyContent="center">
+        {error && <h1>{error}</h1>}
         {news.map(({ id, title, body }) => (
           <Grid item key={id} xs={12} md={6}>
             <NewsCard id={id} title={title} body={body} />

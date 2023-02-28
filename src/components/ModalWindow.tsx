@@ -3,13 +3,12 @@ import { useTranslation } from "react-i18next";
 import { Typography, Button, Dialog, Box } from "@mui/material";
 
 import { useAppSelector } from "../hooks/redux";
-import LoginForm from "./LoginForm";
+import LoginForm from "./LoginForm/LoginForm";
 
 const ModalWindow = () => {
+  const { isAuth } = useAppSelector((state) => state.auth);
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-
-  const { isAuth } = useAppSelector((state) => state.auth);
 
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);

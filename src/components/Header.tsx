@@ -16,17 +16,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import { useAppSelector, useAppDispatch } from "../hooks/redux";
 import { logout } from "../redux/authSlice";
 import ModalWindow from "./ModalWindow";
-import MobileMenu from "./MobileMenu";
+import MobileMenu from "./MobileMenu/MobileMenu";
 
 function ResponsiveAppBar() {
-  const { t, i18n } = useTranslation();
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const changeLanguage = (lang: string) => i18n.changeLanguage(lang);
-
   const { isAuth } = useAppSelector((state) => state.auth);
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const handleOpenNavMenu = () => setOpen(true);
   const handleCloseNavMenu = () => setOpen(false);
@@ -92,8 +89,8 @@ function ResponsiveAppBar() {
               color="inherit"
               aria-label="text button group"
             >
-              <Button onClick={() => changeLanguage("en")}>EN</Button>
-              <Button onClick={() => changeLanguage("ua")}>UA</Button>
+              <Button onClick={() => i18n.changeLanguage("en")}>EN</Button>
+              <Button onClick={() => i18n.changeLanguage("ua")}>UA</Button>
             </ButtonGroup>
             {isAuth && (
               <>

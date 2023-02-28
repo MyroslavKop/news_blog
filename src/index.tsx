@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "@mui/material/styles";
 import Spinner from "./components/Spinner";
-import { PersistGate } from "redux-persist/integration/react";
 
 import store, { persistor } from "./redux/store";
 import theme from "./theme";

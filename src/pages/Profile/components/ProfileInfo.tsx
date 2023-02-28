@@ -1,9 +1,5 @@
 import { Typography, Box } from "@mui/material";
-
-interface ProfileInfoProps {
-  category: string;
-  info: string;
-}
+import ProfileInfoProps from "./interfaces";
 
 const ProfileInfo = ({ category, info }: ProfileInfoProps) => {
   return (
