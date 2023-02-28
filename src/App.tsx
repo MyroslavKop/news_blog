@@ -7,7 +7,7 @@ import Header from "./components/Header";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/news_blog">
       <CssBaseline />
       <Box
         sx={{
